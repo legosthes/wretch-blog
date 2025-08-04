@@ -8,3 +8,6 @@ wheels/
 
 # Virtual environments
 .venv
+
+# 星號代表所有這些檔案都不要進版更
+*.sqlite3
