@@ -4,7 +4,10 @@ from . import views
 app_name="articles"
 
 urlpatterns = [
+    # 這些urlpatterns是有順序的，如果<id>在前面，就會被吃掉
+    # 所以才在id前加int，說是整數才可以通過
+    path("new/",views.new,name="new"),
+    path("<int:id>",views.detail, name="detail"),
     path("", views.index, name="index"),
-    path("new/",views.new,name="new")
 ]
 
