@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <title>有名小站</title>
-</head>
-<body>
-    <nav>
-        <ul>
-            <li><a href="{%url 'pages:home'%}">Home</a></li>
-            <li><a href="{%url 'pages:about'%}">About</a></li>
-            <li><a href="{%url 'pages:contact'%}">Contact Us</a></li>
-        </ul>
+  </head>
+  <body>
+    <nav class="bg-green-200 py-4 px-8">
+      <ul class="flex gap-2">
+        <li>
+          <a href="{%url 'pages:home'%}">Home</a>
+        </li>
+        <li><a href="{%url 'pages:about'%}">About</a></li>
+        <li><a href="{%url 'articles:index'%}">Articles</a></li>
+        <li><a href="{%url 'pages:contact'%}">Contact Us</a></li>
+      </ul>
     </nav>
-    
+
     <!-- 先挖洞 -->
-    {%block content%} {%endblock%}
-    
-</body>
+    <main class="container mx-auto">{%block content%} {%endblock%}</main>
+  </body>
 </html>

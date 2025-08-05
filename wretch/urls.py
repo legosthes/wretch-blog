@@ -8,5 +8,6 @@ from django.contrib import admin
 urlpatterns = [
     # 只要到首頁，就會去找pages.urls的檔案
     path("", include("pages.urls")),
+    path("articles/", include("articles.urls")),
     path("admin/", admin.site.urls),
 ]
