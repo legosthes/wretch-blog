@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>有名小站</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{%url 'pages:home'%}">Home</a></li>
+            <li><a href="{%url 'pages:about'%}">About</a></li>
+            <li><a href="{%url 'pages:contact'%}">Contact Us</a></li>
+        </ul>
+    </nav>
+    
+    <!-- 先挖洞 -->
+    {%block content%} {%endblock%}
+    
+</body>
+</html>
