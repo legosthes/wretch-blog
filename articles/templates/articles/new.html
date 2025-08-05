@@ -1,0 +1,30 @@
+{%extends "layouts/default.html"%} {%block content%}
+<h1 class="text-3xl py-4">New Article</h1>
+
+<!-- 如果你要做post的行為，在django框架裡，你需要一個CSRFtoken才可以，避免不正常的使用 -->
+<form action="{% url 'articles:index'%}" method="post">
+  <div class="flex flex-col gap-2">
+    <!-- 所以才需要在表單新增一個token -->
+    <!-- 這一個只能擋跨站的，無法擋站內的 -->
+    {% csrf_token %}
+    <label for="title">Title</label>
+    <input
+      class="input input-primary w-full"
+      name="title"
+      type="text"
+      id="title"
+      required
+    />
+    <label for="content">Content</label>
+    <!-- textarea 是多行輸入框 -->
+    <textarea
+      class="textarea textarea-primary w-full"
+      name="content"
+      id="content"
+    ></textarea>
+    <div>
+      <button type="submit" class="btn btn-primary">Create</button>
+    </div>
+  </div>
+</form>
+{%endblock%}
