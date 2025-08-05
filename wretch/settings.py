@@ -30,6 +30,7 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+# 把我們創建的pages資料夾，寫到這裡，才會被視為app
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -37,6 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "pages",
 ]
 
 MIDDLEWARE = [
@@ -55,6 +57,7 @@ TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": ["templates"],
+        # 如果app裡面的資料夾也有叫做templates，那我會先往app找，找完再去外面找
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
