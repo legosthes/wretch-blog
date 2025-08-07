@@ -39,8 +39,9 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "pages",
-    "articles",
     # 更精準的寫法是 articles.apps.ArticlesConfig
+    "articles",
+    
 ]
 
 MIDDLEWARE = [

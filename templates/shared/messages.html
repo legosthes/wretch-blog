@@ -1,0 +1,12 @@
+<!-- 加訊息呈現，加在公版 -->
+<!-- 這段愈來愈複雜，所以把他拉到其他檔案 -->
+{% if messages%}
+<div class="toast toast-top toast-start" x-data="{show: true}" x-show="show">
+  {% for m in messages %}
+  <div class="alert alert-{{m.tags}} flex justify-between">
+    <span>{{m}}</span>
+    <button @click="show = false" class="pointer-cursor">x</button>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}

@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Article
-from django.http import HttpResponse
+from django.contrib import messages
+
 
 # Create your views here.
 def index(request):
@@ -12,7 +13,8 @@ def index(request):
         # 斜線的title, content是在model時定義的
         # 寫入table
         Article.objects.create(title=title,content=content)
-       
+        #加一個成功訊息
+        messages.success(request, "Article created successfully.")
         return redirect("articles:index")
     else:
         # order by 可以排序，-id是後面的id排在前面，讓新的文章在前面
@@ -27,12 +29,23 @@ def new(request):
 
 # 在urls如果帶id，在這裡需要再帶一個id的參數
 def detail(request, id):
-    # 這裡是可能會出錯的地方，所以用try, except包起來
-    try:
-        article = Article.objects.get(pk=id) # 也可以(id=id)
-    except:
-        return HttpResponse("Sorry, this page does not exist")
-    
-    #也可以用get_object_or_404，避免寫太多except
+    article = get_object_or_404(Article, pk=id)
+    # _method 是在HTML檔裡 name 設定的
+    # 先判斷是不是request.POST
+    if request.POST:
+        if request.POST['_method'] == 'patch':
+            article.title = request.POST['title']
+            article.content = request.POST['content']
+            article.save()
+            messages.success(request, "Article saved successfully.")
+            return redirect("articles:detail", article.id)
+        if request.POST['_method'] == 'delete':
+            article.delete()
+            return redirect("articles:index")
+    else:
+        return render(request,"articles/detail.html",{"article":article})
+
+# 增加編輯
+def edit(request,id):
     article = get_object_or_404(Article,pk=id)
-    return render(request,"articles/detail.html",{"article":article})
+    return render(request,"articles/edit.html",{"article":article})

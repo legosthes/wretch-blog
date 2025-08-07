@@ -2,7 +2,12 @@
 <h1 class="text-3xl py-4">New Article</h1>
 
 <!-- 如果你要做post的行為，在django框架裡，你需要一個CSRFtoken才可以，避免不正常的使用 -->
-<form action="{% url 'articles:index'%}" method="post">
+<form
+  action="{% url 'articles:index'%}"
+  method="post"
+  @submit="confirm('Are you sure you want to create this article?')"
+  x-data
+>
   <div class="flex flex-col gap-2">
     <!-- 所以才需要在表單新增一個token -->
     <!-- 這一個只能擋跨站的，無法擋站內的 -->
