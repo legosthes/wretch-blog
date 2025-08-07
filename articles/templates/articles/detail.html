@@ -1,4 +1,5 @@
 {%extends "layouts/default.html"%} {%block content%}
 
-<h1 class="text-3xl mt-4">Hello {{id}}</h1>
+<h1 class="text-3xl mt-4">{{article.title}}</h1>
+<article>{{article.content | linebreaksbr}}</article>
 {%endblock%}

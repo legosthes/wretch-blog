@@ -7,7 +7,9 @@
 <h1 class="text-3xl mt-4">Articles</h1>
 {%for article in articles%}
 <article class="border my-4 p-3 rounded-xl border-gray-300">
-  <h2 class="text-xl">{{article.title}}</h2>
+  <h2 class="text-xl transition-all hover:text-blue-300">
+    <a href="{%url 'articles:detail' article.id%}">{{article.title}}</a>
+  </h2>
   <p>{{article.content | truncatewords:15}}</p>
 </article>
 {%endfor%} {%endblock%}
