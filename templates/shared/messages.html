@@ -5,7 +5,7 @@
   {% for m in messages %}
   <div class="alert alert-{{m.tags}} flex justify-between">
     <span>{{m}}</span>
-    <button @click="show = false" class="pointer-cursor">x</button>
+    <button @click="show = false" class="cursor-pointer">x</button>
     {% endfor %}
   </div>
 </div>
