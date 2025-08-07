@@ -28,10 +28,10 @@ def new(request):
 # 在urls如果帶id，在這裡需要再帶一個id的參數
 def detail(request, id):
     # 這裡是可能會出錯的地方，所以用try, except包起來
-    # try:
-    #     article = Article.objects.get(pk=id) # 也可以(id=id)
-    # except:
-    #     return HttpResponse("Sorry, this page does not exist")
+    try:
+        article = Article.objects.get(pk=id) # 也可以(id=id)
+    except:
+        return HttpResponse("Sorry, this page does not exist")
     
     #也可以用get_object_or_404，避免寫太多except
     article = get_object_or_404(Article,pk=id)

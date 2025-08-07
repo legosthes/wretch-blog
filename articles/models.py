@@ -7,3 +7,7 @@ class Article(models.Model):
     # 大量的文字用TextField
     # 內文可以空，因為有可能文章還沒寫完
     content = models.TextField(null=True)
+
+    # 魔術方法，顯示出article name
+    def __str__(self):
+        return self.title
