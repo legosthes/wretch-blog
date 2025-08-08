@@ -16,14 +16,20 @@
     <title>有名小站</title>
   </head>
   <body>
-    <nav class="bg-green-200 py-4 px-8">
-      <ul class="flex gap-2">
+    <nav class="bg-accent py-4 px-8">
+      <ul class="flex flex-row w-full gap-2 menu w-56 [&_li>*]:rounded-box p-0">
         <li>
           <a href="{%url 'pages:home'%}">Home</a>
         </li>
-        <li><a href="{%url 'pages:about'%}">About</a></li>
-        <li><a href="{%url 'articles:index'%}">Articles</a></li>
-        <li><a href="{%url 'pages:contact'%}">Contact Us</a></li>
+        <li>
+          <a href="{%url 'pages:about'%}">About</a>
+        </li>
+        <li>
+          <a href="{%url 'articles:index'%}">Articles</a>
+        </li>
+        <li>
+          <a href="{%url 'pages:contact'%}">Contact Us</a>
+        </li>
       </ul>
     </nav>
 

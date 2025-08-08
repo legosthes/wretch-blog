@@ -8,6 +8,9 @@ class Article(models.Model):
     # 內文可以空，因為有可能文章還沒寫完
     content = models.TextField(null=True)
 
+    # sqlite 本身沒有boolean的資料型態，所以他自動把我們的False變成0
+    is_published = models.BooleanField(default=False,null=False)
+
     # 魔術方法，顯示出article name
     def __str__(self):
         return self.title
