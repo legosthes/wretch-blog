@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Article
 from django.contrib import messages
 from .forms import ArticleForm
+from comments.forms import CommentForm
 
 
 # Create your views here.
@@ -61,7 +62,13 @@ def detail(request, id):
             article.delete()
             return redirect("articles:index")
     else:
-        return render(request, "articles/detail.html", {"article": article})
+        comment_form = CommentForm()
+        comments = article.comment_set.filter(deleted_at__isnull=True).order_by("-id")
+        return render(
+            request,
+            "articles/detail.html",
+            {"article": article, "comment_form": comment_form, "comments": comments},
+        )
 
 
 # 增加編輯

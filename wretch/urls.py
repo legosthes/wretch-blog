@@ -9,5 +9,6 @@ urlpatterns = [
     # 只要到首頁，就會去找pages.urls的檔案
     path("", include("pages.urls")),
     path("articles/", include("articles.urls")),
+    path("comments/", include("comments.urls")),
     path("admin/", admin.site.urls),
 ]

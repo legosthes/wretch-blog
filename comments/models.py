@@ -1,5 +1,6 @@
 from django.db import models
 from articles.models import Article
+from datetime import datetime
 
 
 # Create your models here.
@@ -11,6 +12,7 @@ class Comment(models.Model):
     article = models.ForeignKey(Article, default=None, on_delete=models.CASCADE)
     # 建立時間
     # auto_now_add 建立的時間寫進去，auto_now 則是現在的時間
+    # 寫進資料庫的時間要固定，然後再根據不同時區去顯示
     created_at = models.DateTimeField(auto_now_add=True)
     # soft delete，兩種做法
     # 1
@@ -19,3 +21,7 @@ class Comment(models.Model):
     # 加索引 index，不用每個欄位都加，否則寫入會變慢
     # 因為刪除不常刪，所以適合加索引
     deleted_at = models.DateTimeField(null=True, db_index=True)
+
+    def delete(self):
+        self.deleted_at = datetime.now()
+        self.save()
