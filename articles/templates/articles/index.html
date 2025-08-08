@@ -8,7 +8,7 @@
 {%for article in articles%}
 <article class="border my-4 p-3 rounded-xl border-gray-300">
   {%if article.is_published%} o {%else%} x {%endif%}
-  <h2 class="text-xl transition-all hover:text-blue-300 duration-300">
+  <h2 class="text-xl transition-all hover:text-accent duration-300">
     <a href="{%url 'articles:detail' article.id%}">{{article.title}}</a>
   </h2>
   <p>{{article.content | truncatewords:15}}</p>

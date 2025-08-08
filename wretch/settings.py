@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     "pages",
     # 更精準的寫法是 articles.apps.ArticlesConfig
     "articles",
-    
+    "comments",
 ]
 
 MIDDLEWARE = [

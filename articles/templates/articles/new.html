@@ -1,6 +1,10 @@
 {%extends "layouts/default.html"%} {%block content%}
 <h1 class="text-3xl py-4">New Article</h1>
 
+
+
+<hr>
+
 <!-- 如果你要做post的行為，在django框架裡，你需要一個CSRFtoken才可以，避免不正常的使用 -->
 <form
   action="{% url 'articles:index'%}"
@@ -12,7 +16,15 @@
     <!-- 所以才需要在表單新增一個token -->
     <!-- 這一個只能擋跨站的，無法擋站內的 -->
     {% csrf_token %}
-    <label for="title">Title</label>
+
+    <!-- 用form的方式製作表單 -->
+    {%for field in form%}
+      {{field.label_tag}}
+      {{field}}
+    {% endfor %}
+
+
+    <!-- <label for="title">Title</label>
     <input
       class="input input-primary w-full"
       name="title"
@@ -21,18 +33,18 @@
       required
     />
     <label for="content">Content</label>
-    <!-- textarea 是多行輸入框 -->
+   
     <textarea
       class="textarea textarea-primary w-full"
       name="content"
       id="content"
-    ></textarea>
-    <div>
-        <input class="checkbox"
+    ></textarea> -->
+    <!-- <div>
+        <input class="checkbox checkbox-accent"
         type="checkbox"
         name="is_published"
          /> Publish
-      </div>
+    </div> -->
     <div>
       <button type="submit" class="btn btn-primary">Create</button>
     </div>

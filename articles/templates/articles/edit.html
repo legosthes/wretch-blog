@@ -7,7 +7,13 @@
       <!-- 所以才需要在表單新增一個token -->
       <!-- 這一個只能擋跨站的，無法擋站內的 -->
       {% csrf_token %}
-      <label for="title">Title</label>
+
+      <!-- 用form的方式製作表單 -->
+    {%for field in form%}
+      {{field.label_tag}}
+      {{field}}
+    {% endfor %}
+      <!-- <label for="title">Title</label>
       <input
         class="input input-primary w-full"
         name="title"
@@ -16,7 +22,7 @@
         value="{{article.title}}"
       />
       <label for="content">Content</label>
-      <!-- textarea 是多行輸入框 -->
+      
       <textarea
         class="textarea textarea-primary w-full"
         name="content"
@@ -29,7 +35,7 @@
         type="checkbox"
         name="is_published"
         {% if article.is_published %} checked {% endif %} /> Publish
-      </div>
+      </div> -->
 
       <div>
         <button type="submit" class="btn btn-primary">Save</button>

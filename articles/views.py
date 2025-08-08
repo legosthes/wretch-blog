@@ -34,7 +34,8 @@ def index(request):
 
 
 def new(request):
-    return render(request, "articles/new.html")
+    form = ArticleForm(request.POST)
+    return render(request, "articles/new.html", {"form": form})
 
 
 # 在urls如果帶id，在這裡需要再帶一個id的參數
@@ -44,11 +45,16 @@ def detail(request, id):
     # 先判斷是不是request.POST
     if request.method == "POST":
         if request.POST["_method"] == "patch":
-            article.title = request.POST.get("title")
-            article.content = request.POST.get("content")
-            # 如果request.POST是on，那就會是True
-            article.is_published = request.POST.get("is_published") == "on"
-            article.save()
+            # 用form的方式改寫
+            # 沒有寫instance會不知道在改哪一筆資料
+            form = ArticleForm(request.POST, instance=article)
+            form.save()
+
+            # article.title = request.POST.get("title")
+            # article.content = request.POST.get("content")
+            # # 如果request.POST是on，那就會是True
+            # article.is_published = request.POST.get("is_published") == "on"
+            # article.save()
             messages.success(request, "Article saved successfully.")
             return redirect("articles:detail", article.id)
         if request.POST["_method"] == "delete":
@@ -60,5 +66,8 @@ def detail(request, id):
 
 # 增加編輯
 def edit(request, id):
+    # 用form的方式改寫
+    # 沒有寫instance會不知道在改哪一筆資料
     article = get_object_or_404(Article, pk=id)
-    return render(request, "articles/edit.html", {"article": article})
+    form = ArticleForm(instance=article)
+    return render(request, "articles/edit.html", {"article": article, "form": form})
