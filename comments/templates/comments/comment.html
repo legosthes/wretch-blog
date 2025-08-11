@@ -1,3 +1,6 @@
+<!-- 搬過來的原因是，這裡功能會愈來愈複雜，為了讓detail頁面看起來不要那麼亂，所以搬到獨立的頁面 -->
+
+<!-- 比較好的設計是，不要讓他去抓上層或空中的變數，而是我直接餵給你，參考detail.html的寫法 -->
 <div class="comment border-1 border-gray-400 rounded-2xl mt-2 p-2 hover:shadow-sm flex flex-row items-center justify-between" id="comment-{{comment.id}}">
     <div class="text"><li>{{comment.content}}</li>
     <li class="text-xs text-gray-500">{{comment.created_at}}</li></div>

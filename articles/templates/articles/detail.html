@@ -19,19 +19,23 @@
 <hr>
 <h3 class="text-2xl">Comment Section</h3>
 
-<form action="{%url 'articles:create_comment' article.id%}" method="post" class="mt-4">
-  {% for field in comment_form%}
-  {% csrf_token %}
+<!-- 改用htmx來寫 -->
+ <!-- after-request那句是為了清除input -->
+<form hx-post="{%url 'articles:create_comment' article.id%}" hx-target="#comment-section" hx-swap="afterbegin" hx-on::after-request="if(event.detail.successful) this.reset()" class="mt-4">
+  
   <!-- 也可以用這個單獨指定的方式去寫 -->
   {{comment_form.content.label_tag}}
   {{comment_form.content}}
-  {%endfor%}
+
   <button class="btn btn-primary mt-4">Send</button>
 </form>
 
-<ul>
-  {%for comment in comments%}
-    {%include "comments/comment.html"%}
+<ul id="comment-section">
+  {%for c in comments%}
+    <!-- 這樣設定不管在哪裡，他就可以獨立使用 -->
+    <!-- only是你只能吃我給你的，你不能擁有別的變數，for example，我放{{comments}}，他就會吃不到 -->
+    <!-- 這樣的設計代表，include裡面只能吃comment的變數 -->
+    {%include "comments/comment.html" with comment=c only%}
   {%endfor%}
 </ul>
 

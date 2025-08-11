@@ -1,4 +1,4 @@
-from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import redirect, get_object_or_404, render
 from django.http import HttpResponse
 from .forms import CommentForm
 from articles.models import Article
@@ -23,8 +23,11 @@ def create(request, id):
         # 把文章掛給它
         comment.article = article
         comment.save()
-        messages.success(request, "Comment added.")
-        return redirect("articles:detail", article.id)
+        # 把要save的comment，帶進去，這裡算是一種前端的演戲，如果沒有這個變數，我要重新整理才會出現
+        return render(request, "comments/comment.html", {"comment": comment})
+
+        # messages.success(request, "Comment added.")
+        # return redirect("articles:detail", article.id)
 
 
 # 以下這句取代的意思就是if request.method=="DELETE"
@@ -38,7 +41,7 @@ def delete(request, id):
     # comment.deleted_at = datetime.now()
     # comment.save()
     comment.delete()
-    messages.warning(request, "Comment deleted.")
+    # messages.warning(request, "Comment deleted.")
     return HttpResponse("")
     # 改成htmx後，他就會把button那一區redirect為以下，所以我需要return以上才讓他變成空值
     # return redirect("articles:detail", comment.article_id)
