@@ -1,0 +1,15 @@
+{%extends 'layouts/default.html'%}
+
+{%block content%}
+<h1>test</h1>
+
+<button class="btn btn-success" hx-post="/about/" hx-swap="outerHTML" hx-target="#result">
+    click
+</button>
+
+{%now "jS F Y H:i:s"%}
+
+
+<div id="result">result</div>
+
+{%endblock%}

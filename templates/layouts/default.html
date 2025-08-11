@@ -8,15 +8,14 @@
       rel="stylesheet"
       type="text/css"
     />
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <script src="//unpkg.com/alpinejs" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.6/dist/htmx.min.js" integrity="sha384-Akqfrbj/HpNVo8k11SXBb6TlBWmXXlYQrCSqEWmyKJe+hDm3Z/B2WVG4smwBkRVm" crossorigin="anonymous"></script>
     {% load static %}
-    <script src="{%static 'scripts/app.js'%}"></script>
+    <script type="module" src="{%static 'scripts/app.js'%}"></script>
     <link rel="stylesheet" href="{%static 'styles/app.css'%}" />
     <title>有名小站</title>
   </head>
-  <body>
-    <nav class="bg-accent py-4 px-8">
+  <body  hx-headers='{"X-CSRFToken":"{{csrf_token}}"}'>
+    <nav class="bg-accent py-4 px-8 shadow-sm">
       <ul class="flex flex-row w-full gap-2 menu w-56 [&_li>*]:rounded-box p-0">
         <li>
           <a href="{%url 'pages:home'%}">Home</a>
@@ -35,10 +34,7 @@
 
     <!-- 先挖洞 -->
     <main class="container mx-auto mt-2">
-      {%include "shared/messages.html"%}
-      {%block content%}
-        
-      {%endblock%}
+      {%include "shared/messages.html"%} {%block content%} {%endblock%}
     </main>
   </body>
 </html>

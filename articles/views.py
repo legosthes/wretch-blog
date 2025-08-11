@@ -29,7 +29,7 @@ def index(request):
         # order by 可以排序，-id是後面的id排在前面，讓新的文章在前面
         # 如果不知道要寫什麼，可以寫all，但如果可以接其他東西像是order_by，那就不用寫all
         # 這裡的filter是資料庫的where的意思
-        articles = Article.objects.order_by("-id")
+        articles = Article.objects.filter(is_published=True).order_by("-id")
         # articles的key是我在html要讀到的
         return render(request, "articles/index.html", {"articles": articles})
 

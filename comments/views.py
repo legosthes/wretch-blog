@@ -1,4 +1,5 @@
 from django.shortcuts import redirect, get_object_or_404
+from django.http import HttpResponse
 from .forms import CommentForm
 from articles.models import Article
 from django.contrib import messages
@@ -26,14 +27,16 @@ def create(request, id):
         return redirect("articles:detail", article.id)
 
 
-@require_POST
 def delete(request, id):
-    comment = get_object_or_404(Comment, pk=id)
-    # 軟刪除，只篩選有刪除日期的
-    # 其實可以把以下的，寫在model裡
-    # 這樣就可以用這樣的方式叫出來comment.delete()，會看起來比較乾淨
-    # comment.deleted_at = datetime.now()
-    # comment.save()
-    comment.delete()
-    messages.success(request, "Comment deleted.")
-    return redirect("articles:detail", comment.article_id)
+    # 改用htmx後
+    if request.method == "DELETE":
+        comment = get_object_or_404(Comment, pk=id)
+        # 軟刪除，只篩選有刪除日期的
+        # 其實可以把以下的，寫在model裡
+        # 這樣就可以用這樣的方式叫出來comment.delete()，會看起來比較乾淨
+        # comment.deleted_at = datetime.now()
+        # comment.save()
+        comment.delete()
+        messages.warning(request, "Comment deleted.")
+        return HttpResponse("")
+        # return redirect("articles:detail", comment.article_id)
