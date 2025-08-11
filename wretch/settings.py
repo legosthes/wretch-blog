@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     # 更精準的寫法是 articles.apps.ArticlesConfig
     "articles",
     "comments",
+    "users",
+    "sessions.apps.SessionsConfig",
 ]
 
 MIDDLEWARE = [
