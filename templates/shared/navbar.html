@@ -1,0 +1,44 @@
+<nav
+  id="navbar-main"
+  class="bg-accent py-4 px-8 shadow-sm flex flex-row justify-between"
+>
+  <ul class="flex flex-row w-full gap-2 menu w-56 [&_li>*]:rounded-box p-0">
+    <li>
+      <a href="{%url 'pages:home'%}">Home</a>
+    </li>
+    <li>
+      <a href="{%url 'pages:about'%}">About</a>
+    </li>
+    <li>
+      <a href="{%url 'articles:index'%}">Articles</a>
+    </li>
+    <li>
+      <a href="{%url 'pages:contact'%}">Contact Us</a>
+    </li>
+  </ul>
+  <ul
+    class="flex flex-row w-full gap-2 menu w-56 [&_li>*:rounded-box p-0 items-center"
+  >
+    {% if user.is_authenticated %}
+    <li>{{user.username}}</li>
+    <li>
+      <!-- 對sessions的地方做刪除，登出就是刪除sessions -->
+      <!-- 把整條navbar移除掉 -->
+      <a
+        href="#"
+        hx-target="#navbar-main"
+        hx-swap="outerHTML"
+        hx-delete="{%url 'sessions:logout'%}"
+        >Log out</a
+      >
+    </li>
+    {% else %}
+    <li>
+      <a href="{%url 'sessions:new'%}">Login</a>
+    </li>
+    <li>
+      <a href="{%url 'users:new'%}">Register</a>
+    </li>
+    {%endif%}
+  </ul>
+</nav>

@@ -15,28 +15,7 @@
     <title>有名小站</title>
   </head>
   <body  hx-headers='{"X-CSRFToken":"{{csrf_token}}"}'>
-    <nav class="bg-accent py-4 px-8 shadow-sm flex flex-row justify-between">
-      <ul class="flex flex-row w-full gap-2 menu w-56 [&_li>*]:rounded-box p-0">
-        <li>
-          <a href="{%url 'pages:home'%}">Home</a>
-        </li>
-        <li>
-          <a href="{%url 'pages:about'%}">About</a>
-        </li>
-        <li>
-          <a href="{%url 'articles:index'%}">Articles</a>
-        </li>
-        <li>
-          <a href="{%url 'pages:contact'%}">Contact Us</a>
-        </li>
-      </ul>
-      <ul class="flex flex-row w-full gap-2 menu w-56 [&_li>*]:rounded-box p-0 items-center">
-        <li>
-          <a href="{%url 'sessions:new'%}">Login</a></li>
-        <li>
-          <a href="{%url 'users:new'%}">Register</a></li>
-      </ul>
-    </nav>
+      {%include "shared/navbar.html"%}
 
     <!-- 先挖洞 -->
     <main class="container mx-auto mt-2">

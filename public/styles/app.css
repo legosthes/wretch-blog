@@ -1666,6 +1666,16 @@
       --input-color: var(--color-primary);
     }
   }
+  .\*\:rounded-box {
+    :is(& > *) {
+      border-radius: var(--radius-box);
+    }
+  }
+  .\*\:rounded-box {
+    :is(& > *) {
+      border-radius: var(--radius-box);
+    }
+  }
   .hover\:text-accent {
     &:hover {
       @media (hover: hover) {
