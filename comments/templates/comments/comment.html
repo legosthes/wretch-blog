@@ -1,0 +1,17 @@
+<div class="comment border-1 border-gray-400 rounded-2xl mt-2 p-2 hover:shadow-sm flex flex-row items-center justify-between" id="comment-{{comment.id}}">
+    <div class="text"><li>{{comment.content}}</li>
+    <li class="text-xs text-gray-500">{{comment.created_at}}</li></div>
+    <!-- <form action="{%url 'comments:delete' comment.id%}" method="post"> -->
+      <!-- csrf token 可以刪掉，因為已經放在body裡了 -->
+      <!-- {% csrf_token %} -->
+
+      <!-- 使用htmx的方式，就可以不用用form了send request了 -->
+     
+    <!-- </form> -->
+     <!-- hx-swap換的位置、hx-target換的標的物 -->
+     <button class="btn btn-sm btn-error"
+     hx-delete="{%url 'comments:delete' comment.id%}"
+     hx-target="#comment-{{comment.id}}"
+     hx-swap="outerHTML">Delete</button>
+    
+</div>
