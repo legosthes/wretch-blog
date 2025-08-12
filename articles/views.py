@@ -49,10 +49,14 @@ def new(request):
 
 # 在urls如果帶id，在這裡需要再帶一個id的參數
 def detail(request, id):
-    article = get_object_or_404(Article, pk=id)
     # _method 是在HTML檔裡 name 設定的
     # 先判斷是不是request.POST
     if request.method == "POST" and request.user.is_authenticated:
+        article = get_object_or_404(
+            Article,
+            pk=id,
+            user=request.user,
+        )
         if request.POST["_method"] == "patch":
             # 用form的方式改寫
             # 沒有寫instance會不知道在改哪一筆資料
@@ -70,6 +74,8 @@ def detail(request, id):
             article.delete()
             return redirect("articles:index")
     else:
+        # user的判定不能在最上面，不然一般人就看不到文章了，所以從最上面移到這裡
+        article = get_object_or_404(Article, pk=id)
         comment_form = CommentForm()
         comments = article.comment_set.filter(deleted_at__isnull=True).order_by("-id")
         return render(
@@ -84,6 +90,12 @@ def detail(request, id):
 def edit(request, id):
     # 用form的方式改寫
     # 沒有寫instance會不知道在改哪一筆資料
-    article = get_object_or_404(Article, pk=id)
+    # 目前只有擋有沒有登入，但只要登入，卻還是能拿別人的id
+    # user 必須要等於登入的user
+    article = get_object_or_404(Article, pk=id, user=request.user)
     form = ArticleForm(instance=article)
-    return render(request, "articles/edit.html", {"article": article, "form": form})
+    return render(
+        request,
+        "articles/edit.html",
+        {"article": article, "form": form},
+    )
