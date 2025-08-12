@@ -33,7 +33,11 @@ def index(request):
         # order by 可以排序，-id是後面的id排在前面，讓新的文章在前面
         # 如果不知道要寫什麼，可以寫all，但如果可以接其他東西像是order_by，那就不用寫all
         # 這裡的filter是資料庫的where的意思
-        articles = Article.objects.filter(is_published=True).order_by("-id")
+        articles = (
+            Article.objects.select_related("user")
+            .filter(is_published=True)
+            .order_by("-id")
+        )
         # articles的key是我在html要讀到的
         return render(request, "articles/index.html", {"articles": articles})
 
@@ -77,7 +81,13 @@ def detail(request, id):
         # user的判定不能在最上面，不然一般人就看不到文章了，所以從最上面移到這裡
         article = get_object_or_404(Article, pk=id)
         comment_form = CommentForm()
-        comments = article.comment_set.filter(deleted_at__isnull=True).order_by("-id")
+        comments = (
+            # 用select_related減少查詢的次數，解決n+1查詢的問題
+            # 意思是，我知道你會用user，所以事先幫你準備好（用join，把兩個表格擺在一起，所以只需要做一次查詢）
+            article.comment_set.select_related("user")
+            .filter(deleted_at__isnull=True)
+            .order_by("-id")
+        )
         return render(
             request,
             "articles/detail.html",

@@ -4,9 +4,9 @@
 <div class="comment border-1 border-gray-400 rounded-2xl mt-2 p-2 hover:shadow-sm flex flex-row items-center justify-between" id="comment-{{comment.id}}">
     
     <div class="text">
-      <li class="text-xs">{% if comment.user != NULL%}{{comment.user}}{%endif%}</li>
+      <span class="text-xs">{% if comment.user != NULL%}{{comment.user}}{%endif%}</span>
       <li>{{comment.content}}</li>
-    <li class="text-xs text-gray-500">{{comment.created_at}}</li></div>
+      <li class="text-xs text-gray-500">{{comment.created_at}}</li></div>
     <!-- <form action="{%url 'comments:delete' comment.id%}" method="post"> -->
       <!-- csrf token 可以刪掉，因為已經放在body裡了 -->
       <!-- {% csrf_token %} -->
