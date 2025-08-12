@@ -2,7 +2,10 @@
 
 <!-- 比較好的設計是，不要讓他去抓上層或空中的變數，而是我直接餵給你，參考detail.html的寫法 -->
 <div class="comment border-1 border-gray-400 rounded-2xl mt-2 p-2 hover:shadow-sm flex flex-row items-center justify-between" id="comment-{{comment.id}}">
-    <div class="text"><li>{{comment.content}}</li>
+    
+    <div class="text">
+      <li class="text-xs">{% if comment.user != NULL%}{{comment.user}}{%endif%}</li>
+      <li>{{comment.content}}</li>
     <li class="text-xs text-gray-500">{{comment.created_at}}</li></div>
     <!-- <form action="{%url 'comments:delete' comment.id%}" method="post"> -->
       <!-- csrf token 可以刪掉，因為已經放在body裡了 -->
@@ -11,10 +14,12 @@
       <!-- 使用htmx的方式，就可以不用用form了send request了 -->
      
     <!-- </form> -->
-     <!-- hx-swap換的位置、hx-target換的標的物 -->
+    <!-- hx-swap換的位置、hx-target換的標的物 -->
+     <!-- 如果是comment的作者才會出現刪除按鈕 -->
+    {%if comment.user == user%}
      <button class="btn btn-sm btn-error"
      hx-delete="{%url 'comments:delete' comment.id%}"
      hx-target="#comment-{{comment.id}}"
      hx-swap="outerHTML">Delete</button>
-    
+    {%endif%}
 </div>

@@ -35,7 +35,7 @@
     <!-- 這樣設定不管在哪裡，他就可以獨立使用 -->
     <!-- only是你只能吃我給你的，你不能擁有別的變數，for example，我放{{comments}}，他就會吃不到 -->
     <!-- 這樣的設計代表，include裡面只能吃comment的變數 -->
-    {%include "comments/comment.html" with comment=c only%}
+    {%include "comments/comment.html" with comment=c user=user only%}
   {%endfor%}
 </ul>
 

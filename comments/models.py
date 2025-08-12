@@ -1,5 +1,5 @@
 from django.db import models
-from articles.models import Article
+from articles.models import Article, User
 from datetime import datetime
 
 
@@ -21,6 +21,7 @@ class Comment(models.Model):
     # 加索引 index，不用每個欄位都加，否則寫入會變慢
     # 因為刪除不常刪，所以適合加索引
     deleted_at = models.DateTimeField(null=True, db_index=True)
+    user = models.ForeignKey(User, default=None, null=True, on_delete=models.SET_NULL)
 
     def delete(self):
         self.deleted_at = datetime.now()
