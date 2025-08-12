@@ -14,7 +14,7 @@
 </div>
 
 <!-- 先決定他的like是False -->
-{%include "ui/like_button.html" with article=article liked=liked only%}
+{%include "ui/like_button.html" with article=article liked=liked user=user only%}
 
 
 <h1 class="text-3xl mt-4 text-primary mb-2">{{article.title}}</h1>

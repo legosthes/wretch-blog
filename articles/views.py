@@ -57,12 +57,14 @@ def new(request):
 def detail(request, id):
     # _method 是在HTML檔裡 name 設定的
     # 先判斷是不是request.POST
-    if request.method == "POST" and request.user.is_authenticated:
+
+    if request.POST and request.user.is_authenticated:
         article = get_object_or_404(
             Article,
             pk=id,
             user=request.user,
         )
+
         if request.POST["_method"] == "patch":
             # 用form的方式改寫
             # 沒有寫instance會不知道在改哪一筆資料
@@ -90,16 +92,28 @@ def detail(request, id):
             .filter(deleted_at__isnull=True)
             .order_by("-id")
         )
-        return render(
-            request,
-            "articles/detail.html",
-            {
-                "article": article,
-                "comment_form": comment_form,
-                "comments": comments,
-                "liked": article.likers.contains(request.user),
-            },
-        )
+        if request.user.is_authenticated:
+            return render(
+                request,
+                "articles/detail.html",
+                {
+                    "article": article,
+                    "comment_form": comment_form,
+                    "comments": comments,
+                    # 顯示liked是true/false
+                    "liked": article.likers.contains(request.user),
+                },
+            )
+        else:
+            return render(
+                request,
+                "articles/detail.html",
+                {
+                    "article": article,
+                    "comment_form": comment_form,
+                    "comments": comments,
+                },
+            )
 
 
 # 增加編輯
@@ -122,12 +136,19 @@ def edit(request, id):
 @login_required
 def like(request, id):
     article = get_object_or_404(Article, pk=id)
+    # toggle liked 的true/false
     liked = False
     if request.user.liked_articles.contains(article):
-        # 不若包括，再按一下就要收掉
+        # 若不包括，再按一下就要收掉
         request.user.liked_articles.remove(article)
     else:
         # 如果沒有包括，那就新增
         request.user.liked_articles.add(article)
         liked = True
+
+    # 以上的另一種寫法
+    # if article.likers.contains(request.user):
+    #     article.likers.remove(request.user)
+    # else:
+    #     article.likers.add(request.user)
     return render(request, "ui/like_button.html", {"article": article, "liked": liked})

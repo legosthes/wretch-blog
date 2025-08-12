@@ -33,7 +33,7 @@ class Article(models.Model):
 
     # 以下兩個方式都可以找到東西
     # Article.objects.get(pk=1).likers 喜歡該文章的人
-    # Users.objects.get(pk=1) 喜歡哪些文章
+    # Users.objects.get(pk=1).articles 喜歡哪些文章
 
     # 魔術方法，顯示出article name
     def __str__(self):
