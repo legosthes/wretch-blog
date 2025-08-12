@@ -46,6 +46,9 @@ INSTALLED_APPS = [
     "sessions.apps.SessionsConfig",
 ]
 
+# 沒有登入，就把你踢到這裡來
+LOGIN_URL = "/sessions/new"
+
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",

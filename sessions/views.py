@@ -29,6 +29,7 @@ def create(request):
 # 名字不能一樣，否則會stack overflow
 def logout(request):
     logout_user(request)
-    # 因為我用 htmx 所以我的 target 就會全部被換掉
+    # 因為我用 htmx 所以我的 target 設定 navbar，那就會全部被換掉
+    # 他只針對我指定的地方做修改，這才是為什麼我可以只render navbar.html 而不是整個 default
     # return redirect ("sessions:new")
     return render(request, "shared/navbar.html")

@@ -41,7 +41,7 @@ def delete(request, id):
     # comment.deleted_at = datetime.now()
     # comment.save()
     comment.delete()
-    # messages.warning(request, "Comment deleted.")
+    messages.warning(request, "Comment deleted.")
     return HttpResponse("")
     # 改成htmx後，他就會把button那一區redirect為以下，所以我需要return以上才讓他變成空值
     # return redirect("articles:detail", comment.article_id)

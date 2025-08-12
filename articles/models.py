@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # 什麼時候需要再建一個model，資料是不是一對多？
 # 譬如說留言，因為一個article會有很多留言，或是標籤，一個文章可能有很多標籤
@@ -16,6 +17,13 @@ class Article(models.Model):
 
     # sqlite 本身沒有boolean的資料型態，所以他自動把我們的False變成0
     is_published = models.BooleanField(default=False, null=False)
+    # 增加作者欄位，如果沒有null=True，那不能設定成SET_NULL
+    user = models.ForeignKey(
+        User,
+        default=None,
+        null=True,
+        on_delete=models.SET_NULL,
+    )
 
     # 魔術方法，顯示出article name
     def __str__(self):

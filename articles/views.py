@@ -3,17 +3,21 @@ from .models import Article
 from django.contrib import messages
 from .forms import ArticleForm
 from comments.forms import CommentForm
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
 def index(request):
     # 如果是post，那就寫入資料表
-    if request.method == "POST":
+    # 如果是有登入的才可以做以下，這個寫法是針對web requests
+    if request.method == "POST" and request.user.is_authenticated:
         # 用forms之後就可以省去以下的那些欄位
         # 他會到你的form的檔案中抓設定好的欄位
         form = ArticleForm(request.POST)
-        form.save()
-
+        # 把作者存進文章裡，先暫存
+        article = form.save(commit=False)
+        article.user = request.user
+        article.save()
         # # 引號裡的是在html設定的name，如果沒有name，就會抓不到
         # title = request.POST.get("title")
         # content = request.POST.get("content")
@@ -34,6 +38,10 @@ def index(request):
         return render(request, "articles/index.html", {"articles": articles})
 
 
+# 這個function需要登入才能使用
+# login_url可以指定要把使用者踢到哪裡
+# 寫在settings也可以
+@login_required
 def new(request):
     form = ArticleForm(request.POST)
     return render(request, "articles/new.html", {"form": form})
@@ -44,7 +52,7 @@ def detail(request, id):
     article = get_object_or_404(Article, pk=id)
     # _method 是在HTML檔裡 name 設定的
     # 先判斷是不是request.POST
-    if request.method == "POST":
+    if request.method == "POST" and request.user.is_authenticated:
         if request.POST["_method"] == "patch":
             # 用form的方式改寫
             # 沒有寫instance會不知道在改哪一筆資料
@@ -72,6 +80,7 @@ def detail(request, id):
 
 
 # 增加編輯
+@login_required
 def edit(request, id):
     # 用form的方式改寫
     # 沒有寫instance會不知道在改哪一筆資料
