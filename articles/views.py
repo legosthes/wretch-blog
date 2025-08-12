@@ -4,6 +4,8 @@ from django.contrib import messages
 from .forms import ArticleForm
 from comments.forms import CommentForm
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
+from django.http import HttpResponse
 
 
 # Create your views here.
@@ -91,7 +93,12 @@ def detail(request, id):
         return render(
             request,
             "articles/detail.html",
-            {"article": article, "comment_form": comment_form, "comments": comments},
+            {
+                "article": article,
+                "comment_form": comment_form,
+                "comments": comments,
+                "liked": article.likers.contains(request.user),
+            },
         )
 
 
@@ -109,3 +116,18 @@ def edit(request, id):
         "articles/edit.html",
         {"article": article, "form": form},
     )
+
+
+@require_POST
+@login_required
+def like(request, id):
+    article = get_object_or_404(Article, pk=id)
+    liked = False
+    if request.user.liked_articles.contains(article):
+        # 不若包括，再按一下就要收掉
+        request.user.liked_articles.remove(article)
+    else:
+        # 如果沒有包括，那就新增
+        request.user.liked_articles.add(article)
+        liked = True
+    return render(request, "ui/like_button.html", {"article": article, "liked": liked})

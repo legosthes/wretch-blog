@@ -25,6 +25,23 @@ class Article(models.Model):
         on_delete=models.SET_NULL,
     )
 
+    # 這樣寫，跟下面設兩個foreignkey的寫法，會有一樣的結果
+    # 因為我們想加自己的欄位，所以要用through透過我的Model
+    likers = models.ManyToManyField(
+        User, related_name="liked_articles", through="FavoriteArticle"
+    )
+
+    # 以下兩個方式都可以找到東西
+    # Article.objects.get(pk=1).likers 喜歡該文章的人
+    # Users.objects.get(pk=1) 喜歡哪些文章
+
     # 魔術方法，顯示出article name
     def __str__(self):
         return self.title
+
+
+# 製作喜愛文章
+class FavoriteArticle(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    article = models.ForeignKey(Article, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)

@@ -13,6 +13,10 @@
   </form>
 </div>
 
+<!-- 先決定他的like是False -->
+{%include "ui/like_button.html" with article=article liked=liked only%}
+
+
 <h1 class="text-3xl mt-4 text-primary mb-2">{{article.title}}</h1>
 <article class="mb-4">{{article.content | linebreaksbr}}</article>
 
@@ -27,7 +31,7 @@
   {{comment_form.content.label_tag}}
   {{comment_form.content}}
 
-  <button :disabled="{{user.is_authenticated | yesno:'false,true'}}" class="btn btn-primary mt-4">Send</button>
+  <button :disabled="{{user.is_authenticated|yesno:"false,true"}}" class="btn btn-primary mt-4">Send</button>
 </form>
 
 <!-- 留言愈多，就會查資料庫愈多次，因為每一筆留言都要查詢作者（n+1 query） -->
