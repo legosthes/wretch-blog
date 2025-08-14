@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "users",
     "sessions.apps.SessionsConfig",
     "debug_toolbar",
+    "payments",
 ]
 
 # 沒有登入，就把你踢到這裡來

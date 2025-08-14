@@ -13,11 +13,14 @@
       <a href="{%url 'articles:index'%}">Articles</a>
     </li>
     <li>
+      <a href="{%url 'pages:pricing'%}">VIP</a>
+    </li>
+    <li>
       <a href="{%url 'pages:contact'%}">Contact Us</a>
     </li>
   </ul>
   <ul
-    class="flex flex-row w-full gap-2 menu w-56 [&_li>*:rounded-box p-0 items-center"
+    class="flex flex-row gap-2 menu w-56 [&_li>*:rounded-box p-0 items-center"
   >
     {% if user.is_authenticated %}
     <li>{{user.username}}</li>

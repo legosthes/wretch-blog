@@ -14,5 +14,9 @@ def contact(request):
     return render(request, "pages/contact.html")
 
 
+def pricing(request):
+    return render(request, "pages/pricing.html")
+
+
 def test(request):
     return render(request, "pages/test.html")

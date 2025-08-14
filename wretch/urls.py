@@ -9,6 +9,7 @@ from debug_toolbar.toolbar import debug_toolbar_urls
 urlpatterns = [
     # 只要到首頁，就會去找pages.urls的檔案
     path("", include("pages.urls")),
+    path("payments/", include("payments.urls")),
     path("articles/", include("articles.urls")),
     path("comments/", include("comments.urls")),
     path("users/", include("users.urls")),
