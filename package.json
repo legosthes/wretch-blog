@@ -17,7 +17,7 @@
   "scripts": {
     "js:build": "esbuild src/scripts/app.js --bundle --minify --outfile=public/scripts/app.js",
     "js:dev": "esbuild src/scripts/app.js --bundle --outfile=public/scripts/app.js --watch",
-    "css:build": "npx @tailwindcss/cli -i src/styles/app.css -o public/styles/app.css --minify",gi
+    "css:build": "npx @tailwindcss/cli -i src/styles/app.css -o public/styles/app.css --minify",
     "css:dev": "npx @tailwindcss/cli -i src/styles/app.css -o public/styles/app.css --watch",
     "build": "concurrently 'npm run js:build' 'npm run css:build'",
     "dev": "concurrently 'npm run js:dev' 'npm run css:dev'"
