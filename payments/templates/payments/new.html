@@ -1,7 +1,25 @@
-{%extends "layouts/default.html"%}
-{%block content%}
-<h1>付款</h1>
+{%extends "layouts/default.html"%} {%block content%}
+<h1 class="text-3xl">付款：方案 {{plan|upper}}</h1>
 
+{{token}}
 
+<!-- 為了把x-data搬到form，所以我需要一個div來裝我的刷卡單，所以用x-ref的方式來refer它 -->
+<!-- 為了把後端的資料送到前端，用data-set -->
+<form
+  action="{%url 'payments:index'%}"
+  method="post"
+  x-data="braintree_payment_form"
+  data-token="{{token}}"
+  action=""
+>
+  <div x-ref="dropin"></div>
+  <button
+    :disabled="!ableToSubmit"
+    @submit.prevent="onSubmit"
+    class="btn btn-secondary"
+  >
+    付款
+  </button>
+</form>
 
 {%endblock%}

@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en" data-theme="nord">
   <head>
@@ -8,14 +10,18 @@
       rel="stylesheet"
       type="text/css"
     />
-    <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.6/dist/htmx.min.js" integrity="sha384-Akqfrbj/HpNVo8k11SXBb6TlBWmXXlYQrCSqEWmyKJe+hDm3Z/B2WVG4smwBkRVm" crossorigin="anonymous"></script>
-    {% load static %}
-    <script type="module" src="{%static 'scripts/app.js'%}"></script>
-    <link rel="stylesheet" href="{%static 'styles/app.css'%}" />
+    <script
+      src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.6/dist/htmx.min.js"
+      integrity="sha384-Akqfrbj/HpNVo8k11SXBb6TlBWmXXlYQrCSqEWmyKJe+hDm3Z/B2WVG4smwBkRVm"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="{%static 'scripts/app.js'%}" defer></script>
+    <link rel="stylesheet" href="{%static 'styles/app.css'%}" type="text/css" />
     <title>有名小站</title>
   </head>
-  <body  hx-headers='{"X-CSRFToken":"{{csrf_token}}"}'>
-      {%include "shared/navbar.html"%}
+  <body hx-headers='{"X-CSRFToken":"{{csrf_token}}"}'>
+    {%include "shared/navbar.html"%}
 
     <!-- 先挖洞 -->
     <main class="container mx-auto mt-2">
